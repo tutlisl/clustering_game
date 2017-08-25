@@ -37,15 +37,15 @@ alert("playanima");
   function convRgbToPos(obj, colorG, colorB){
     //obj.x = Math.round(colorG * (rCanvas.width - 2*radius)) + radius;
     //obj.y = rCanvas.height - (Math.round(colorB*(rCanvas.height-2*radius))+radius);
-	
+
 	obj.x = colorG * 255;
     obj.y = colorB * 255;
-	
-	
+
+
 	obj.x = obj.x*((rCanvas.width*0.8)/255) + (rCanvas.width*0.1);
     obj.y = obj.y*((rCanvas.height*0.8)/255) + (rCanvas.height*0.1);
     obj.y = rCanvas.height - obj.y; //上下反転変換
-	
+
 	console.log(colorG + ", " + colorB);
 	console.log(obj.x + ", " + obj.y);
     //obj.x = Math.round(resMap["result"][i]["centroid"][j]["x"] * (wih - 2*rightRadius)) + rightRadius;
@@ -62,7 +62,7 @@ alert("playanima");
   function plotDataPoint(t){
     var resultIndex = t-1;
 	if(resultIndex >= resMap["iters"]){resultIndex = resMap["iters"]-1;}
-    
+
 	//var labelList = Array(resMap["result"][resultIndex][labels].length);
     function returnClusterLabel(label){
 	  var no;
@@ -241,7 +241,7 @@ function loopContent(i){
 	//alert(userHistory.length+","+userHistory[0].g);
 	//	alert(userHistory[0].id+",g"+userHistory[0].g+","+userHistory[0].b);
     drawAxis(); //軸を表示
-	
+
 	// 右画面データ点描画
 	plotDataPoint(t);
 	// 右画面クラスタ中心描画
@@ -252,7 +252,7 @@ function loopContent(i){
 	// クラスタリング対象のデータを描画
 	t++;
 	i=t;
-	
+
 	// 左画面描画
 
 }
@@ -367,19 +367,11 @@ numに3を指定したときは0回目と1回目と2回目と3回目のクラス
 */
 function plotClusterCenterHistory(dotHistory, num, marker){
     var i, n;
-    if(num > (dotHistory.length - 4)/2) num = (dotHistory.length - 4)/2; //表示回数がデータの表示できる回数分より大きかった場合はそこで打ち切る
+    if(num > (dotHistory.length - 4)/4) num = (dotHistory.length - 4)/4; //表示回数がデータの表示できる回数分より大きかった場合はそこで打ち切る
 
     /*データの表示*/
-    //初めの4つ
-    plotDot(dotHistory[0].g, dotHistory[0].b, marker, dotHistory[0].id);
-    plotDot(dotHistory[1].g, dotHistory[1].b, marker, dotHistory[1].id);
-    plotDot(dotHistory[2].g, dotHistory[2].b, marker, dotHistory[2].id);
-    plotDot(dotHistory[3].g, dotHistory[3].b, marker, dotHistory[3].id);
-    //更新データ
-    for(n = 0; n < num; n++){
-        i = 4 + n*2;
-        plotDot(dotHistory[i].g, dotHistory[i].b, marker, dotHistory[i].id);
-        plotDot(dotHistory[i+1].g, dotHistory[i+1].b, marker, dotHistory[i+1].id);
+    for(j = num*4; j < num*4 + 4; j++){
+        plotDot(userHistory[j]['g'], userHistory[j]['b'], marker, userHistory[j]['id']);
     }
 }
 
